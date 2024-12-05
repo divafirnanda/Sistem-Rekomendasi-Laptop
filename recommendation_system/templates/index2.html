@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Rekomendasi Laptop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #388da8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #388da8;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .laptop {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sistem Rekomendasi Laptop</h1>
+        <form method="POST">
+            <label for="brand">Brand</label>
+            <select name="brand">
+                <option value="Any">Any</option>
+                <option value="Dell">Dell</option>
+                <option value="HP">HP</option>
+                <option value="Lenovo">Lenovo</option>
+                <option value="Apple">Apple</option>
+            </select>
+
+            <label for="processor">Processor</label>
+            <select name="processor">
+                <option value="Any">Any</option>
+                <option value="Intel">Intel</option>
+                <option value="AMD">AMD</option>
+            </select>
+
+            <label for="ram">RAM</label>
+            <select name="ram">
+                <option value="Any">Any</option>
+                <option value="8">8GB</option>
+                <option value="16">16GB</option>
+                <option value="32">32GB</option>
+            </select>
+
+            <label for="storage">Storage Type</label>
+            <select name="storage">
+                <option value="Any">Any</option>
+                <option value="SSD">SSD</option>
+                <option value="HDD">HDD</option>
+            </select>
+
+            <label for="gpu">GPU</label>
+            <select name="gpu">
+                <option value="Any">Any</option>
+                <option value="NVIDIA">NVIDIA</option>
+                <option value="AMD">AMD</option>
+            </select>
+
+            <label for="screen_size">Screen Size (Inches)</label>
+            <select name="screen_size">
+                <option value="Any">Any</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="17">17</option>
+            </select>
+
+            <button type="submit">Cari Laptop</button>
+        </form>
+
+        <div class="results">
+            <h2>Rekomendasi Laptop:</h2>
+            {% if recommendations %}
+            {% for laptop in recommendations %}
+            <div class="laptop">
+                <p><strong>Nama Produk:</strong> {{ laptop['Company'] }} {{ laptop['Product'] }}</p>
+                <!-- <p><strong>Brand:</strong> {{ laptop['Company'] }}</p> -->
+                <p><strong>Processor:</strong> {{ laptop['CPU_company'] }} {{ laptop['CPU_model'] }}</p>
+                <p><strong>RAM:</strong> {{ laptop['Ram'] }}GB</p>
+                <p><strong>Storage:</strong> {{ laptop['PrimaryStorageType'] }} {{ laptop['PrimaryStorage'] }}</p>
+                <p><strong>GPU:</strong> {{ laptop['GPU_company'] }} {{ laptop['GPU_model'] }}</p>
+                <p><strong>Screen Size:</strong> {{ laptop['Inches'] }} {{ laptop['Screen'] }}</p>
+
+                <p><strong>Harga:</strong> €{{ laptop['Price_euros'] }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>Tidak ada rekomendasi ditemukan.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
